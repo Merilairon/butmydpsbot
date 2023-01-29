@@ -25,7 +25,8 @@ jobs:
     name: build docker
     runInContainer: false
     image: ubuntu:latest
-    interpreter: !DefaultInterpreter
+    interpreter: !ShellInterpreter
+      shell: bash
       commands:
       - docker build -t merilairon.com:5000/@project_name@:@script:builtin:node:determine-project-version@
         -t merilairon.com:5000/@project_name@:latest .
