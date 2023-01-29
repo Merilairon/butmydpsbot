@@ -21,6 +21,11 @@ jobs:
       - npm install
     useTTY: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !BuildImageStep
+    name: build docker
+    tags: '@build_version@'
+    publish: true
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
   - !BranchUpdateTrigger {}
   retryCondition: never
