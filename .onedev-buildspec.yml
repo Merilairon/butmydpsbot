@@ -30,6 +30,10 @@ jobs:
   - key: npm-cache
     path: /root/.npm
   timeout: 3600
+  postBuildActions:
+  - !RunJobAction
+    condition: previous is successful
+    jobName: build image
 - name: build image
   jobExecutor: local-agent
   steps:
