@@ -23,7 +23,7 @@ jobs:
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !CommandStep
     name: build docker
-    runInContainer: true
+    runInContainer: false
     image: ubuntu:latest
     interpreter: !DefaultInterpreter
       commands:
