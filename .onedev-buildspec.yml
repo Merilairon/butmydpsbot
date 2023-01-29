@@ -24,7 +24,7 @@ jobs:
   - !BuildImageStep
     name: build docker
     tags: registry.merilairon.com/@project_name@:@script:builtin:node:determine-project-version@
-      registry.merilairon.com.com/@project_name@:latest
+      registry.merilairon.com/@project_name@:latest
     publish: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
