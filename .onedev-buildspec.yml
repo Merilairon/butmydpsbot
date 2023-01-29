@@ -21,10 +21,16 @@ jobs:
       - npm install
     useTTY: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
-  - !BuildImageStep
+  - !CommandStep
     name: build docker
-    tags: '@build_version@'
-    publish: true
+    runInContainer: true
+    image: ubuntu:latest
+    interpreter: !DefaultInterpreter
+      commands:
+      - docker build -t merilairon.com:5000/@project_name@:@script:builtin:node:determine-project-version@
+        -t merilairon.com:5000/@project_name@:latest .
+      - docker push merilairon.com:5000/@project_name@:latest
+    useTTY: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
   - !BranchUpdateTrigger {}
