@@ -19,7 +19,6 @@ jobs:
     interpreter: !DefaultInterpreter
       commands:
       - npm install
-      - 'npx '
     useTTY: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
