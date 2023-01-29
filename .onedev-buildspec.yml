@@ -21,17 +21,6 @@ jobs:
       - npm install
     useTTY: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
-  - !CommandStep
-    name: build docker
-    runInContainer: false
-    image: ubuntu:latest
-    interpreter: !DefaultInterpreter
-      commands:
-      - docker build -t merilairon.com:5000/@project_name@:@script:builtin:node:determine-project-version@
-        -t merilairon.com:5000/@project_name@:latest .
-      - docker push merilairon.com:5000/@project_name@:latest
-    useTTY: false
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
   - !BranchUpdateTrigger {}
   retryCondition: never
@@ -40,4 +29,27 @@ jobs:
   caches:
   - key: npm-cache
     path: /root/.npm
+  timeout: 3600
+- name: build image
+  jobExecutor: local-agent
+  steps:
+  - !CheckoutStep
+    name: checkout
+    cloneCredential: !DefaultCredential {}
+    withLfs: false
+    withSubmodules: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !CommandStep
+    name: build docker
+    runInContainer: false
+    interpreter: !DefaultInterpreter
+      commands:
+      - docker build -t merilairon.com:5000/@project_name@:@script:builtin:node:determine-project-version@
+        -t merilairon.com:5000/@project_name@:latest .
+      - docker push merilairon.com:5000/@project_name@:latest
+    useTTY: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
   timeout: 3600
