@@ -53,9 +53,9 @@ const init = async () => {
     console.log("Trying Production Mongodb connection:\n");
     mongoose
       .connect(process.env.DB_URI, {
-        auth: { authSource: process.env.DB_AUTHSOURCE },
-        user: process.env.DB_USERNAME,
-        pass: process.env.DB_PASSWORD,
+        //auth: { authSource: process.env.DB_AUTHSOURCE },
+        //user: process.env.DB_USERNAME,
+        //pass: process.env.DB_PASSWORD,
         useUnifiedTopology: true,
         useNewUrlParser: true,
       })
