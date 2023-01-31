@@ -86,6 +86,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
         fields.push({
           name: `${name}`,
           value: wingDescription,
+          inline: true
         });
       });
     }
