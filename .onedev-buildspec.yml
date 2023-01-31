@@ -15,7 +15,7 @@ jobs:
   - !CommandStep
     name: build & test
     runInContainer: true
-    image: node:10.16-alpine
+    image: node:16
     interpreter: !DefaultInterpreter
       commands:
       - npm install
