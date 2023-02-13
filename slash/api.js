@@ -6,7 +6,9 @@ const r = /[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-
 const DiscordAccounts = mongoose.model("DiscordAccounts");
 
 exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars
-  await interaction.deferReply();
+  await interaction.deferReply({
+    ephemeral: true
+  });
 
   try {
   
@@ -20,7 +22,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
             text: embedSettings.footertext,
             icon_url: embedSettings.footericon
           }
-        }]});
+        }], ephemeral: true });
       }
   
       if (!interaction.options.getString("apikey").match(r)) {
@@ -32,19 +34,19 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
             text: embedSettings.footertext,
             icon_url: embedSettings.footericon
           }
-        }]});
+        }], ephemeral: true });
       }
       const da = new DiscordAccounts({
         discordId: interaction.user.id,
         apiKey: interaction.options.getString("apikey"),
       });
       da.save();
-      interaction.editReply("Your Guild Wars 2 API key has been added");//TODO: change to embed
+      interaction.editReply({ content: "Your Guild Wars 2 API key has been added", ephemeral: true});//TODO: change to embed
     }
   
     else if (interaction.options.getString("action") === "remove") {
       await DiscordAccounts.deleteOne({ discordId: interaction.user.id });
-      return interaction.editReply("Your Guild Wars 2 API key has been removed or you never linked it");//TODO: change to embed
+      return interaction.editReply({ content: "Your Guild Wars 2 API key has been removed or you never linked it", ephemeral: true});//TODO: change to embed
     }
   
     else {
@@ -56,7 +58,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
           text: embedSettings.footertext,
           icon_url: embedSettings.footericon
         }
-      }]});
+      }], ephemeral: true });
     }
   
   } catch (e) {
@@ -68,7 +70,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
         text: embedSettings.footertext,
         icon_url: embedSettings.footericon
       }
-    }]});
+    }], ephemeral: true });
   }
 };
 
