@@ -120,5 +120,5 @@ exports.commandData = {
 exports.conf = {
   permLevel: "User",
   dmsOnly: false,
-  guildOnly: true
+  guildOnly: false
 };
