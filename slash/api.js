@@ -17,7 +17,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
         return interaction.editReply({ embeds: [{
           color: embedSettings.wrongcolor,
           title: "❌ ERROR | You didn't provide an API key",
-          description:"Usage: `\\api <add/remove> [API-KEY]`",
+          description:"Usage: `/api <add/remove> [API-KEY]`",
           footer: {
             text: embedSettings.footertext,
             icon_url: embedSettings.footericon
@@ -29,7 +29,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
         return interaction.editReply({ embeds: [{
           color: embedSettings.wrongcolor,
           title: "❌ ERROR | The given API key is not valid! Try again.",
-          description:"Usage: `\\api <add/remove> [API-KEY]`",
+          description:"Usage: `/api <add/remove> [API-KEY]`",
           footer: {
             text: embedSettings.footertext,
             icon_url: embedSettings.footericon
@@ -53,7 +53,7 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
       return interaction.editReply({ embeds: [{
         color: embedSettings.wrongcolor,
         title: "❌ ERROR | No option for adding or removing was given.",
-        description:"Usage: `\\api <add/remove> [API-KEY]`",
+        description:"Usage: `/api <add/remove> [API-KEY]`",
         footer: {
           text: embedSettings.footertext,
           icon_url: embedSettings.footericon

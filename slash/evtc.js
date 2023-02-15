@@ -1,6 +1,5 @@
 const { embedSettings } = require("../config");
 const { createLog } = require("../handlers/createlog");
-const { extractDataFromLog } = require("../handlers/extractdatafromlog");
 
 exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars
   await interaction.deferReply({
