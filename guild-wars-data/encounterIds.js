@@ -110,6 +110,10 @@ module.exports = {
     name: "The Dragonvoid",
     type: "strike_mission"
   },
+  25414: {
+    name: "Old Lion's Court",
+    type: "strike_mission"
+  },
   19676: {
     name: "Large Kitty Golem",
     type: "training"
