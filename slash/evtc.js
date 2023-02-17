@@ -1,5 +1,6 @@
 const { embedSettings } = require("../config");
 const { createLog } = require("../handlers/createlog");
+const { extractDataFromLog } = require("../handlers/extractdatafromlog");
 
 exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars
   await interaction.deferReply({
@@ -22,7 +23,9 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
     }],
     ephemeral: true
     });
+    
     const logLink = (await createLog(attachment.url)).permalink;
+    extractDataFromLog(logLink);
 
     interaction.editReply({ embeds: [{
       color: embedSettings.color,
@@ -72,5 +75,5 @@ exports.commandData = {
 exports.conf = {
   permLevel: "User",
   dmsOnly: false,
-  guildOnly: true
+  guildOnly: false
 };
