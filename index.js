@@ -1,7 +1,10 @@
 // This will check if the node version you are running is the required
 // Node version, if it isn't it will throw the following error to inform
 // you.
-if (Number(process.version.slice(1).split(".")[0]) < 16) throw new Error("Node 16.x or higher is required. Update Node on your system.");
+if (Number(process.version.slice(1).split(".")[0]) < 16)
+  throw new Error(
+    "Node 16.x or higher is required. Update Node on your system."
+  );
 require("dotenv").config();
 
 // Load up the discord.js library
@@ -17,6 +20,7 @@ const client = new Client({ intents, partials });
 
 // This will initialize and attach mongoose to the server
 const mongoose = require("mongoose");
+mongoose.set("strictQuery", false);
 
 mongoose.promise = global.Promise;
 
@@ -39,14 +43,13 @@ client.container = {
   commands,
   aliases,
   slashcmds,
-  levelCache
+  levelCache,
 };
 
 // We're doing real fancy node 8 async/await stuff here, and to do that
 // we need to wrap stuff in an anonymous function. It's annoying but it works.
 
 const init = async () => {
-
   // Here we load mongoose into memory, so they're accessible
   // here and everywhere else
   if (process.env.ENV === "production") {
@@ -59,7 +62,7 @@ const init = async () => {
         useUnifiedTopology: true,
         useNewUrlParser: true,
       })
-      .catch(e => "Production:\n" + console.error(e));
+      .catch((e) => "Production:\n" + console.error(e));
   } else {
     console.log("Trying Development Mongodb Connection:\n");
     mongoose
@@ -67,45 +70,51 @@ const init = async () => {
         useUnifiedTopology: true,
         useNewUrlParser: true,
       })
-      .catch(e => "Development:\n" + console.error(e));
+      .catch((e) => "Development:\n" + console.error(e));
   }
   require("./models/logs");
   require("./models/discordaccounts");
 
   // Here we load **commands** into memory, as a collection, so they're accessible
   // here and everywhere else.
-  const commands = readdirSync("./commands/").filter(file => file.endsWith(".js"));
+  const commands = readdirSync("./commands/").filter((file) =>
+    file.endsWith(".js")
+  );
   for (const file of commands) {
     const props = require(`./commands/${file}`);
     logger.log(`Loading Command: ${props.help.name}. 👌`, "log");
     client.container.commands.set(props.help.name, props);
-    props.conf.aliases.forEach(alias => {
+    props.conf.aliases.forEach((alias) => {
       client.container.aliases.set(alias, props.help.name);
     });
   }
 
   // Now we load any **slash** commands you may have in the ./slash directory.
-  const slashFiles = readdirSync("./slash").filter(file => file.endsWith(".js"));
+  const slashFiles = readdirSync("./slash").filter((file) =>
+    file.endsWith(".js")
+  );
   for (const file of slashFiles) {
     const command = require(`./slash/${file}`);
     const commandName = file.split(".")[0];
     logger.log(`Loading Slash command: ${commandName}. 👌`, "log");
-    
+
     // Now set the name of the command with it's properties.
     client.container.slashcmds.set(command.commandData.name, command);
   }
 
   // Then we load events, which will include our message and ready event.
-  const eventFiles = readdirSync("./events/").filter(file => file.endsWith(".js"));
+  const eventFiles = readdirSync("./events/").filter((file) =>
+    file.endsWith(".js")
+  );
   for (const file of eventFiles) {
     const eventName = file.split(".")[0];
     logger.log(`Loading Event: ${eventName}. 👌`, "log");
     const event = require(`./events/${file}`);
     // Bind the client to any event, before the existing arguments
-    // provided by the discord.js event. 
+    // provided by the discord.js event.
     // This line is awesome by the way. Just sayin'.
     client.on(eventName, event.bind(null, client));
-  }  
+  }
 
   // Threads are currently in BETA.
   // This event will fire when a thread is created, if you want to expand
@@ -118,7 +127,7 @@ const init = async () => {
   // Here we login the client.
   client.login();
 
-// End top-level async/await function.
+  // End top-level async/await function.
 };
 
 init();

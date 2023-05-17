@@ -1,7 +1,7 @@
 const unirest = require("unirest");
-const mongoose  = require("mongoose");
+const mongoose = require("mongoose");
 const Logs = mongoose.model("Logs");
-const {encounterIds} = require("../guild-wars-data");
+const { encounterIds } = require("../guild-wars-data");
 
 module.exports = {
   extractDataFromLog: async (logLink) => {
@@ -16,6 +16,7 @@ module.exports = {
           const { body } = e;
           return body;
         });
+      if (encounterIds[json.triggerID] === undefined) return;
       if (!json) throw new Error("Was not able to gather log");
       const log = new Logs({
         date: createDateFromString(logLink),
@@ -28,11 +29,13 @@ module.exports = {
         success: json.success,
       });
       log.save();
-      return log;
+      return json;
     } catch (error) {
-      throw new Error(`Was unable to save the log url to the database. ${error.stack}`);
+      throw new Error(
+        `Was unable to save the log url to the database. ${error.stack}`
+      );
     }
-  }
+  },
 };
 
 function createDateFromString(logLink) {
