@@ -1,23 +1,6 @@
-# Guide Bot
+# But My DPS Bot
 
-A boilerplate of a Discord.js Bot Handler.
-Updated and Maintained by the [Idiot's Guide Community](https://discord.gg/vXVxsAjSMF).
-
-Guidebot is an attempt to show the basics of command and event handling, in clear, concise,
-and commented code. Guidebot can be used as the template for any type of bot, and contains
-most of the basic features you would need:
-
-- A command handler
-- A basic permission system
-- An event handler
-- Basic useful commands
-- Per-server configuration system
-- A logging system
-
-Functionally [guidebot](https://github.com/AnIdiotsGuide/guidebot/) is identical to [guidebot class](https://github.com/AnIdiotsGuide/guidebot/tree/class), but the difference is that guidebot
-class is created with classes whilst this version is purely function based.
-
-Need support? Join the [Idiot's Guide Community](https://discord.gg/vXVxsAjSMF)!
+This is based on a discord bot by the [Idiot's Guide Community](https://discord.gg/vXVxsAjSMF).
 
 ## Requirements
 
@@ -47,7 +30,7 @@ For more info about intents checkout the [official Discord.js guide page](https:
 
 Create a folder within your projects directory and run the following inside it:
 
-`git clone https://github.com/anidiotsguide/guidebot.git .`
+`git clone https://onedev.merilairon.com/butmydpsbot .`
 
 Once finished:
 

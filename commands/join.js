@@ -29,15 +29,17 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     gw2Client.authenticate(account.apiKey);
     const gw2AccountName = (await gw2Client.account().get()).name;
 
-    return message.channel.send({ embeds: [{
-      color: embedSettings.color,
-      title: `Squad Join Message - ${new Date(Date.now()).toDateString()}`,
-      description:`@everyone\n\n/sqjoin ${gw2AccountName}`,
-      footer: {
-        text: embedSettings.footertext,
-        icon_url: embedSettings.footericon
-      }
-    }]});
+    return message.channel.send({
+      content: "@everyone",
+      embeds: [{
+        color: embedSettings.color,
+        title: `Squad Join Message - ${new Date(Date.now()).toDateString()}`,
+        description:`/sqjoin ${gw2AccountName}`,
+        footer: {
+          text: embedSettings.footertext,
+          icon_url: embedSettings.footericon
+        }
+      }]});
   } catch (e) {
     return message.channel.send({ embeds: [{
       color: embedSettings.wrongcolor,
